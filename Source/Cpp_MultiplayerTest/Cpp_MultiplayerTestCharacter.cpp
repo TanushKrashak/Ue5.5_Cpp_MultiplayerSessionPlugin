@@ -1,6 +1,9 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
+// Game Includes
 #include "Cpp_MultiplayerTestCharacter.h"
+
+// Engine Includes
 #include "Engine/LocalPlayer.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
@@ -10,6 +13,7 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
+#include "Kismet/GameplayStatics.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -52,6 +56,23 @@ ACpp_MultiplayerTestCharacter::ACpp_MultiplayerTestCharacter()
 
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
+}
+
+void ACpp_MultiplayerTestCharacter::OpenLobby() {
+	UWorld* World = GetWorld();
+	if (World) {
+		// Travel to the Lobby map as a Listen Server
+		World->ServerTravel("/Game/ThirdPerson/Maps/Lobby?listen");
+	}
+}
+void ACpp_MultiplayerTestCharacter::CallOpenLevel(const FString& Address) {
+	UGameplayStatics::OpenLevel(this, FName(*Address));
+}
+void ACpp_MultiplayerTestCharacter::CallClientTravel(const FString& Address) {
+	auto Pc = GetGameInstance()->GetFirstLocalPlayerController();
+	if (Pc) {
+		Pc->ClientTravel(Address, ETravelType::TRAVEL_Absolute);
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////

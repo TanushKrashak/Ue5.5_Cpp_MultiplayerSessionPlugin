@@ -19,7 +19,10 @@ UCLASS(config=Game)
 class ACpp_MultiplayerTestCharacter : public ACharacter
 {
 	GENERATED_BODY()
-
+	 
+	//================================================================================================================
+	// PROPERTIES & VARIABLES
+	//================================================================================================================
 	/** Camera boom positioning the camera behind the character */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	USpringArmComponent* CameraBoom;
@@ -44,29 +47,39 @@ class ACpp_MultiplayerTestCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* LookAction;
 
-public:
+
+	//================================================================================================================
+	// FUNCTIONS
+	//================================================================================================================
 	ACpp_MultiplayerTestCharacter();
 	
-
-protected:
-
-	/** Called for movement input */
-	void Move(const FInputActionValue& Value);
-
-	/** Called for looking input */
-	void Look(const FInputActionValue& Value);
-			
-
-protected:
-
-	virtual void NotifyControllerChanged() override;
-
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
-public:
 	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+
+
+	UFUNCTION(BlueprintCallable)
+	void OpenLobby();
+
+	UFUNCTION(BlueprintCallable)
+	void CallOpenLevel(const FString& Address);
+
+	UFUNCTION(BlueprintCallable)
+	void CallClientTravel(const FString& Address);
+
+protected:
+	//================================================================================================================
+	// FUNCTIONS
+	//================================================================================================================
+	/** Called for movement input */
+	void Move(const FInputActionValue& Value);
+
+	/** Called for looking input */
+	void Look(const FInputActionValue& Value);		
+
+	virtual void NotifyControllerChanged() override;
+	 
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 };
 
