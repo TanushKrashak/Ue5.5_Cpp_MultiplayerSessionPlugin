@@ -64,7 +64,7 @@ class ACpp_MultiplayerTestCharacter : public ACharacter
 
 	UFUNCTION(BlueprintCallable)
 	void CallOpenLevel(const FString& Address);
-
+  
 	UFUNCTION(BlueprintCallable)
 	void CallClientTravel(const FString& Address);
 
