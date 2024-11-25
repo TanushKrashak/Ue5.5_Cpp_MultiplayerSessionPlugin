@@ -7,6 +7,8 @@
 #include "Logging/LogMacros.h"
 #include "Cpp_MultiplayerTestCharacter.generated.h"
 
+// Forward Declarations
+class IOnlineSession;
 class USpringArmComponent;
 class UCameraComponent;
 class UInputMappingContext;
@@ -47,6 +49,10 @@ class ACpp_MultiplayerTestCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* LookAction;
 
+	// Online Subsystem
+	// Ptr to the online session interface
+	TSharedPtr<IOnlineSession, ESPMode::ThreadSafe> OnlineSessionInterface;
+	
 
 	//================================================================================================================
 	// FUNCTIONS
@@ -61,13 +67,12 @@ class ACpp_MultiplayerTestCharacter : public ACharacter
 
 	UFUNCTION(BlueprintCallable)
 	void OpenLobby();
-
 	UFUNCTION(BlueprintCallable)
 	void CallOpenLevel(const FString& Address);
-  
 	UFUNCTION(BlueprintCallable)
 	void CallClientTravel(const FString& Address);
 
+	
 protected:
 	//================================================================================================================
 	// FUNCTIONS
