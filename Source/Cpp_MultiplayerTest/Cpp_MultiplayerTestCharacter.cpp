@@ -13,6 +13,7 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
+#include "OnlineSessionSettings.h"
 #include "OnlineSubsystem.h"
 #include "OnlineSubsystemUtils.h"
 #include "Interfaces/OnlineSessionInterface.h"
@@ -142,7 +143,14 @@ void ACpp_MultiplayerTestCharacter::CreateGameSession() {
 }
 
 void ACpp_MultiplayerTestCharacter::OnCreateSessionComplete(FName SessionName, bool bWasSuccessful) {
-	
+	if (bWasSuccessful) {
+		if (GEngine) {
+			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString::Printf(TEXT("Session %s created successfully!"), *SessionName.ToString()));
+		}
+	}
+	else if (GEngine) {
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Failed to create session!"));
+	}
 }
 
 void ACpp_MultiplayerTestCharacter::Move(const FInputActionValue& Value)

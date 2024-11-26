@@ -3,10 +3,10 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "../../../../UE_5.5/Engine/Plugins/Online/OnlineServicesOSSAdapter/Source/Public/Online/SessionsOSSAdapter.h"
 #include "GameFramework/Character.h"
-#include "Interfaces/OnlineSessionDelegates.h"
 #include "Logging/LogMacros.h"
+#include "OnlineSubsystem.h"
+#include "Interfaces/OnlineSessionDelegates.h"
 #include "Cpp_MultiplayerTestCharacter.generated.h"
 
 // Forward Declarations
