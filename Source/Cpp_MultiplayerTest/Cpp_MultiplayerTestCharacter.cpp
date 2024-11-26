@@ -14,15 +14,18 @@
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
 #include "OnlineSubsystem.h"
+#include "OnlineSubsystemUtils.h"
+#include "Interfaces/OnlineSessionInterface.h"
 #include "Kismet/GameplayStatics.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
-//////////////////////////////////////////////////////////////////////////
 // ACpp_MultiplayerTestCharacter
 
-ACpp_MultiplayerTestCharacter::ACpp_MultiplayerTestCharacter()
-{
+ACpp_MultiplayerTestCharacter::ACpp_MultiplayerTestCharacter():
+	// Bind the OnCreateSessionComplete delegate
+	CreateSessionCompleteDelegate(FOnCreateSessionCompleteDelegate::CreateUObject(this, &ThisClass::OnCreateSessionComplete)) {
+	
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
 		
@@ -58,23 +61,19 @@ ACpp_MultiplayerTestCharacter::ACpp_MultiplayerTestCharacter()
 
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
-
-
+	
 	// Online Subsystem
-	if (IOnlineSubsystem* OnlineSubsystem = IOnlineSubsystem::Get()) {
+	if (const IOnlineSubsystem* OnlineSubsystem = Online::GetSubsystem(GetWorld())) {
 		OnlineSessionInterface = OnlineSubsystem->GetSessionInterface();
 
 		if (GEngine) {
-			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString::Printf(TEXT("OnlineSubsystem found! %s"), 
-			*OnlineSubsystem->GetSubsystemName()
-			.ToString()));
+			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString::Printf(TEXT("OnlineSubsystem found! %s"), *OnlineSubsystem->GetSubsystemName().ToString()));
 		}
 	}
 }
 
 void ACpp_MultiplayerTestCharacter::OpenLobby() {
-	UWorld* World = GetWorld();
-	if (World) {
+	if (UWorld* World = GetWorld()) {
 		// Travel to the Lobby map as a Listen Server
 		World->ServerTravel("/Game/ThirdPerson/Maps/Lobby?listen");
 	}
@@ -88,9 +87,6 @@ void ACpp_MultiplayerTestCharacter::CallClientTravel(const FString& Address) {
 		Pc->ClientTravel(Address, ETravelType::TRAVEL_Absolute);
 	}
 }
-
-//////////////////////////////////////////////////////////////////////////
-// Input
 
 void ACpp_MultiplayerTestCharacter::NotifyControllerChanged()
 {
@@ -127,6 +123,28 @@ void ACpp_MultiplayerTestCharacter::SetupPlayerInputComponent(UInputComponent* P
 	}
 }
 
+void ACpp_MultiplayerTestCharacter::CreateGameSession() {
+	// Called when pressing the 1 key
+	if (!OnlineSessionInterface.IsValid()) {
+		return;
+	}
+	// Destroy the existing session if it exists
+	if (auto ExistingSession = OnlineSessionInterface->GetNamedSession(NAME_GameSession); ExistingSession != nullptr) {
+		OnlineSessionInterface->DestroySession(NAME_GameSession);
+	}
+	// Bind the OnCreateSessionComplete delegate
+	OnlineSessionInterface->AddOnCreateSessionCompleteDelegate_Handle(CreateSessionCompleteDelegate);
+	
+	// Create a new session
+	TSharedPtr<FOnlineSessionSettings> SessionSettings = MakeShared<FOnlineSessionSettings>();
+	const ULocalPlayer* LocalPlayer = GetWorld()->GetFirstLocalPlayerFromController();
+	OnlineSessionInterface->CreateSession(*LocalPlayer->GetPreferredUniqueNetId(), NAME_GameSession, *SessionSettings);
+}
+
+void ACpp_MultiplayerTestCharacter::OnCreateSessionComplete(FName SessionName, bool bWasSuccessful) {
+	
+}
+
 void ACpp_MultiplayerTestCharacter::Move(const FInputActionValue& Value)
 {
 	// input is a Vector2D
@@ -149,7 +167,6 @@ void ACpp_MultiplayerTestCharacter::Move(const FInputActionValue& Value)
 		AddMovementInput(RightDirection, MovementVector.X);
 	}
 }
-
 void ACpp_MultiplayerTestCharacter::Look(const FInputActionValue& Value)
 {
 	// input is a Vector2D

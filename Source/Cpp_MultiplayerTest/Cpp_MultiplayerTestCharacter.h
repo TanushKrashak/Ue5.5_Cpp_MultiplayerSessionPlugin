@@ -3,7 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "../../../../UE_5.5/Engine/Plugins/Online/OnlineServicesOSSAdapter/Source/Public/Online/SessionsOSSAdapter.h"
 #include "GameFramework/Character.h"
+#include "Interfaces/OnlineSessionDelegates.h"
 #include "Logging/LogMacros.h"
 #include "Cpp_MultiplayerTestCharacter.generated.h"
 
@@ -51,7 +53,7 @@ class ACpp_MultiplayerTestCharacter : public ACharacter
 
 	// Online Subsystem
 	// Ptr to the online session interface
-	TSharedPtr<IOnlineSession, ESPMode::ThreadSafe> OnlineSessionInterface;
+	IOnlineSessionPtr OnlineSessionInterface;
 	
 
 	//================================================================================================================
@@ -79,12 +81,24 @@ protected:
 	//================================================================================================================
 	/** Called for movement input */
 	void Move(const FInputActionValue& Value);
-
 	/** Called for looking input */
 	void Look(const FInputActionValue& Value);		
 
 	virtual void NotifyControllerChanged() override;
 	 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	// Online Subsystem
+	UFUNCTION(BlueprintCallable)
+	void CreateGameSession();
+
+	
+	void OnCreateSessionComplete(FName SessionName, bool bWasSuccessful);
+	
+private:
+	//================================================================================================================
+	// PROPERTIES & VARIABLES
+	//================================================================================================================
+	FOnCreateSessionCompleteDelegate CreateSessionCompleteDelegate;
 };
 

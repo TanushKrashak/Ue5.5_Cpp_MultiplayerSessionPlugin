@@ -13,6 +13,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c6766ef2-0e8b-4fbd-8ebd-43a464b7176d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Cpp_MultiplayerTest/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Cpp_MultiplayerTest/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Cpp_MultiplayerTest/Cpp_MultiplayerTestCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Cpp_MultiplayerTest/Cpp_MultiplayerTestCharacter.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Cpp_MultiplayerTest/Cpp_MultiplayerTestCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Cpp_MultiplayerTest/Cpp_MultiplayerTestCharacter.h" afterDir="false" />
     </list>
@@ -48,7 +49,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.editor",
+    "settings.editor.selected.configurable": "CppCodeGenerationId",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -144,7 +145,10 @@
       <method v="2" />
     </configuration>
     <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
-      <deployment type="dockerfile" />
+      <deployment type="dockerfile">
+        <settings />
+      </deployment>
+      <EXTENSION ID="com.jetbrains.rider.docker.debug" isFastModeEnabled="true" isSslEnabled="false" />
       <method v="2" />
     </configuration>
   </component>
@@ -159,7 +163,8 @@
       <workItem from="1732552975882" duration="861000" />
       <workItem from="1732556637713" duration="19000" />
       <workItem from="1732556787415" duration="10000" />
-      <workItem from="1732556840271" duration="2348000" />
+      <workItem from="1732556840271" duration="2693000" />
+      <workItem from="1732621172233" duration="7621000" />
     </task>
     <servers />
   </component>
@@ -170,17 +175,6 @@
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/Source/Cpp_MultiplayerTest/Cpp_MultiplayerTestCharacter.cpp</url>
-          <line>3</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
