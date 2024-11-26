@@ -13,8 +13,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c6766ef2-0e8b-4fbd-8ebd-43a464b7176d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Source/Cpp_MultiplayerTest/Cpp_MultiplayerTestCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Cpp_MultiplayerTest/Cpp_MultiplayerTestCharacter.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Cpp_MultiplayerTest/Cpp_MultiplayerTestCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Cpp_MultiplayerTest/Cpp_MultiplayerTestCharacter.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/BlueprintAssist/NodeSizeCache/870283CF4DC7F61F278BCDA1AB28D63A.json" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/BlueprintAssist/NodeSizeCache/870283CF4DC7F61F278BCDA1AB28D63A.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +26,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/../../UE_5.5/Engine/Source/Runtime/Core/Public/Templates/TypeCompatibleBytes.h" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
@@ -163,7 +166,7 @@
       <workItem from="1732556637713" duration="19000" />
       <workItem from="1732556787415" duration="10000" />
       <workItem from="1732556840271" duration="2693000" />
-      <workItem from="1732621172233" duration="8143000" />
+      <workItem from="1732621172233" duration="8497000" />
     </task>
     <servers />
   </component>
